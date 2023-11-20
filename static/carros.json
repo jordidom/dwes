@@ -1,0 +1,4 @@
+[{"id":1,"nom":"Carro simple","clase":"basic","Preu":"75","Descripcio":"Un carro economic i familiar","img":"carro1.png"},
+{"id":2,"nom":"Western","clase":"basic","Preu":"90","Descripcio":"Preparat per la conquesta de l'oest!","img":"carro2.png"},
+{"id":3,"nom":"Utilitari 2px","clase":"1cavall","Preu":"105","Descripcio":"Amb aquest carretó seràs l'enveja de les veinades","img":"carro3.png"},
+{"id":4,"nom":"Deportiu","clase":"2cavalls","Preu":"180","Descripcio":"Si t'agrada la velocitat","img":"carro4.png"}]

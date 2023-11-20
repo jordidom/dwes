@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav
+  class="relative flex w-full flex-wrap items-center justify-between bg-[#FBFBFB] py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
+  <div class="flex w-full flex-wrap items-center justify-between px-3">
+    <div>
+      <a
+        class="mx-2 my-1 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0"
+        href="#">
+        <img
+          class="mr-2"
+          src="../static/logo.png"
+          style="height: 20px"
+          alt="TE Logo"
+          loading="lazy" />
+        <span class="font-medium dark:text-neutral-200"
+          >Desenvolupament web en entorn servidor - Pràctica 2, curs 23/24</span
+        >
+      </a>
+    </div>
+  </div>
+</nav>
+  <ul class="flex border-b">
+    <li class="-mb-px mr-1">
+      <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="{{url_for('lista')}}">Llista de Carros</a>
+    </li>
+    <li class="mr-1">
+      <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{url_for('formulario')}}">Reserva un carro</a>
+    </li>
+    <li class="mr-1">
+      <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{url_for('reservas')}}">Llista de reserves</a>
+    </li>
+  </ul>
+
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
+      <div class="max-w-2xl">
+        <img src="../static/rentacarro.png">
+        <p class="mt-6 text-lg leading-8 text-gray-600">Has d'anar a sa finca a collir melons?, vols ser el nou campió de trot? Tenim el carretó que s'adapta a les teves necessitats </p>
+      </div>
+      <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+        {% for carro in carros %}
+            <li>
+              <div class="flex items-center gap-x-6">
+                <img class="h-16 w-16 rounded-full" src="{{ '../static/' + carro.img }}" alt="">
+                <div>
+                  <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">{{ carro.nom }}</h3>
+                  <p class="text-sm font-semibold leading-6 text-indigo-600">{{ carro.Preu }} €/dia</p>
+                </div>
+              </div>
+            </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav
+  class="relative flex w-full flex-wrap items-center justify-between bg-[#FBFBFB] py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4">
+  <div class="flex w-full flex-wrap items-center justify-between px-3">
+    <div>
+      <a
+        class="mx-2 my-1 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0"
+        href="#">
+        <img
+          class="mr-2"
+          src="../static/logo.png"
+          style="height: 20px"
+          alt="TE Logo"
+          loading="lazy" />
+        <span class="font-medium dark:text-neutral-200"
+          >Desenvolupament web en entorn servidor - Pràctica 2, curs 23/24</span>
+      </a>
+    </div>
+  </div>
+</nav>
+  <ul class="flex border-b">
+    <li class="-mb-px mr-1">
+      <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{url_for('lista')}}">Llista de Carros</a>
+    </li>
+    <li class="mr-1">
+      <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{url_for('formulario')}}">Reserva un carro</a>
+    </li>
+    <li class="mr-1">
+      <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="{{url_for('reservas')}}">Llista de reserves</a>
+    </li>
+  </ul>
+
+  <h2 class="text-4xl font-extrabold dark:text-white">Bàsic</h2>
+
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    USUARI
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Carro
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Dia
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in Form %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{form.name}} {{form.lastName}}
+                </th>
+                <td class="px-6 py-4">
+                    {{form.carro}}
+                </td>
+                <td class="px-6 py-4">
+                    {{form.date}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h2 class="text-4xl font-extrabold dark:text-white">Avançat</h2>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+          <tr>
+              <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                  Carro
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  04-12-2023
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                  05-12-2023
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  06-13-2023
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                  07-12-2023
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  08-12-2023
+              </th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for carro in carros %}
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                {{ carro.nom }}
+            </th>
+            {% for fecha in ["04-12-2023", "05-12-2023", "06-12-2023", "07-12-2023", "08-12-2023"] %}
+            <td class="px-6 py-4 {{ 'bg-gray-50' if loop.index % 2 == 0 else '' }}">
+                {% for reserva in session['form'] %}
+                {% if reserva['carro'] == carro.nom and reserva['date'] == fecha %}
+                {{ reserva['name'] }} {{ reserva['lastName'] }}
+                {% endif %}
+                {% endfor %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+<!-- Botón para borrar datos -->
+<form action="{{ url_for('borrar_datos') }}" method="post">
+    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+      Si deseas enfrentar las consecuencias de un error grave en el trabajo, como la posibilidad de que tu jefe reaccione de forma negativa al descubrir que accidentalmente has borrado la Base de Datos importante, considera esta opción como un ejemplo de lo que podría suceder.
+    </button>
+</form>
+<form action="{{ url_for('recuperar_datos') }}" method="post">
+  <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+    Recuperar Datos Borrados
+  </button>
+</form>
+</body>
+</html>
